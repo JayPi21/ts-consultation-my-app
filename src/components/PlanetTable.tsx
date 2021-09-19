@@ -1,15 +1,12 @@
 import React from "react";
 
-import { getPlanetTable } from "../helper/bhavaPlanetTable";
-
 const styleSublordBh = function (primaryBh: any, sublordBh: any) {
   const sublordBhStyleObject = primaryBh.map((ppBh: any) => {
     return { name: ppBh, sublordBh: sublordBh.includes(ppBh) };
   });
   return sublordBhStyleObject;
 };
-const PlanetTable = ({ bhavas }: any) => {
-  const PlanetList: any = getPlanetTable(bhavas);
+const PlanetTable = ({ PlanetList: data }: any) => {
   return (
     <div className="pl_card">
       <div className="pt_smallcard_contanier">
@@ -20,7 +17,7 @@ const PlanetTable = ({ bhavas }: any) => {
             <th className="dasa_cell w10">Located Bh</th>
             <th className="dasa_cell w50">Connected Bh</th>
           </tr>
-          {PlanetList.map((i: any) => {
+          {data.map((i: any) => {
             const sublordBhStyle = styleSublordBh(i.primBh, i.sublordBh);
             return (
               <tr className={`pt_smallcard`}>

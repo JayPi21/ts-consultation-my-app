@@ -1,6 +1,5 @@
 import React from "react";
-// import bhavas from "../helper/chartData.js";
-import { getBhavaTable } from "../helper/bhavaPlanetTable";
+
 const setOpacityUnderline = (plList: any, SSllist: any, planetList: any) => {
   const styleObj = planetList.map((o: any) => ({
     name: o,
@@ -26,10 +25,7 @@ const stylePrimaryPlanet = function (pp: any, subLord: any) {
   return primaryPlanetStyle;
 };
 
-const BhavaTable = ({ bhavas }: any) => {
-  let bhavaTable = {};
-  const BhavaList: any = getBhavaTable(bhavas);
-
+const BhavaTable = ({ BhavaList: data }: any) => {
   return (
     <div className="pl_card">
       <div className="pt_smallcard_contanier">
@@ -43,7 +39,7 @@ const BhavaTable = ({ bhavas }: any) => {
             <th className="dasa_cell w45">Connected PL</th>
           </tr>
 
-          {BhavaList.map((i: any) => {
+          {data.map((i: any) => {
             const planetStyleObjects = setOpacityUnderline(
               i.pl,
               i.SSLlist,
