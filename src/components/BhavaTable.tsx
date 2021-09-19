@@ -1,8 +1,8 @@
 import React from "react";
 // import bhavas from "../helper/chartData.js";
-import { getBhavaTable } from "../helper/bhavaPlanetTable.js";
-const setOpacityUnderline = (plList, SSllist, planetList) => {
-  const styleObj = planetList.map((o) => ({
+import { getBhavaTable } from "../helper/bhavaPlanetTable";
+const setOpacityUnderline = (plList: any, SSllist: any, planetList: any) => {
+  const styleObj = planetList.map((o: any) => ({
     name: o,
     transparency: !plList.includes(o),
     underline: SSllist.includes(o),
@@ -19,16 +19,16 @@ const opaqueUnderStyle = {
 };
 const planetList = ["Su", "Mo", "Ma", "Ra", "Ju", "Sa", "Me", "Ke", "Ve"];
 
-const stylePrimaryPlanet = function (pp, subLord) {
-  const primaryPlanetStyle = pp.map((p) => {
+const stylePrimaryPlanet = function (pp: any, subLord: any) {
+  const primaryPlanetStyle = pp.map((p: any) => {
     return { name: p, subLord: p == subLord };
   });
   return primaryPlanetStyle;
 };
 
-const BhavaTable = ({ bhavas }) => {
+const BhavaTable = ({ bhavas }: any) => {
   let bhavaTable = {};
-  const BhavaList = getBhavaTable(bhavas);
+  const BhavaList: any = getBhavaTable(bhavas);
 
   return (
     <div className="pl_card">
@@ -43,7 +43,7 @@ const BhavaTable = ({ bhavas }) => {
             <th className="dasa_cell w45">Connected PL</th>
           </tr>
 
-          {BhavaList.map((i) => {
+          {BhavaList.map((i: any) => {
             const planetStyleObjects = setOpacityUnderline(
               i.pl,
               i.SSLlist,
@@ -58,7 +58,7 @@ const BhavaTable = ({ bhavas }) => {
                 </td>
                 <td className="pp_cell w5">{i.count}</td>
                 <td className="pp_cell w20">
-                  {primaryPlanetStyle.map((pp, index) => (
+                  {primaryPlanetStyle.map((pp: any, index: any) => (
                     <span className={pp.subLord ? "blue" : ""}>
                       {pp.name}
                       {index != primaryPlanetStyle.length - 1 ? ", " : ""}
@@ -68,7 +68,7 @@ const BhavaTable = ({ bhavas }) => {
                 <td className="pp_cell w5">{i.def}</td>
                 <td className="pp_cell w20">{i.loc.join(", ")}</td>
                 <td className="pp_cell w45">
-                  {planetStyleObjects.map((pl) => (
+                  {planetStyleObjects.map((pl: any) => (
                     <span
                       style={
                         pl.transparency

@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
 import ReactTooltip from "react-tooltip";
-// import data from "../helper/chartTableInput";
 
-const ChartTable = ({ data }) => {
+const ChartTable = ({ data }: any) => {
   return (
     <div className="pt_table table_split float_left">
       <table className="table">
@@ -25,14 +24,14 @@ const ChartTable = ({ data }) => {
         <tbody>
           {data &&
             data.length > 0 &&
-            data.map((c, idx) => (
+            data.map((c: any, idx: any) => (
               <tr key={`data${idx}`}>
                 <td className="bava_no">{c.houseId}</td>
 
                 <td className="dull_part1">
                   <Fragment>
                     <i
-                      class="material-icons"
+                      className="material-icons"
                       style={{ cursor: "pointer" }}
                       data-tip
                       data-for={`planetSignNametooltip${idx}`}

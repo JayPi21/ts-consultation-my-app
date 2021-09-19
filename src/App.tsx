@@ -5,7 +5,7 @@ import data from "./helper/chartTableInput";
 import bhavas from "./helper/chartData.js";
 import Searchbar from "./components/Searchbar";
 import ChartTable from "./components/ChartTable";
-import BhavaTable from "./components/BhavaTable.js";
+import BhavaTable from "./components/BhavaTable";
 import PlanetTable from "./components/PlanetTable";
 
 function App() {
