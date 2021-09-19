@@ -1,6 +1,6 @@
 import React from "react";
-import bhavas from "../helper/chartData.js";
-import { getPlanetTable, getBhavaTable } from "../helper/bhavaPlanetTable.js";
+// import bhavas from "../helper/chartData.js";
+import { getBhavaTable } from "../helper/bhavaPlanetTable.js";
 const setOpacityUnderline = (plList, SSllist, planetList) => {
   const styleObj = planetList.map((o) => ({
     name: o,
@@ -26,7 +26,7 @@ const stylePrimaryPlanet = function (pp, subLord) {
   return primaryPlanetStyle;
 };
 
-const BhavaTable = () => {
+const BhavaTable = ({ bhavas }) => {
   let bhavaTable = {};
   const BhavaList = getBhavaTable(bhavas);
 

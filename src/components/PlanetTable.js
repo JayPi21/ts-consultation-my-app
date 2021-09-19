@@ -8,7 +8,7 @@ const styleSublordBh = function (primaryBh, sublordBh) {
   });
   return sublordBhStyleObject;
 };
-const PlanetTable = () => {
+const PlanetTable = ({ bhavas }) => {
   const PlanetList = getPlanetTable(bhavas);
   return (
     <div className="pl_card">

@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import ReactTooltip from "react-tooltip";
-import data from "../helper/chartTableInput";
+// import data from "../helper/chartTableInput";
 
-const ChartTable = () => {
+const ChartTable = ({ data }) => {
   return (
     <div className="pt_table table_split float_left">
       <table className="table">

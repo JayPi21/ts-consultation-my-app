@@ -1,6 +1,8 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import data from "./helper/chartTableInput";
+import bhavas from "./helper/chartData.js";
 import Searchbar from "./components/Searchbar";
 import ChartTable from "./components/ChartTable";
 import BhavaTable from "./components/BhavaTable.js";
@@ -10,9 +12,9 @@ function App() {
   return (
     <div className="App">
       <Searchbar />
-      <ChartTable />
-      <BhavaTable />
-      <PlanetTable />
+      <ChartTable data={data} />
+      <BhavaTable bhavas={bhavas} />
+      <PlanetTable bhavas={bhavas} />
     </div>
   );
 }
