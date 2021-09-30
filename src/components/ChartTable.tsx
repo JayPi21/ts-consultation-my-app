@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import ReactTooltip from "react-tooltip";
 
 const ChartTable = ({ data }: any) => {
-  console.log(data);
   return (
     <div className="pt_table table_split float_left">
       <table className="table">

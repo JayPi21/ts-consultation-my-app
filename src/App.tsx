@@ -6,12 +6,11 @@ import Searchbar from "./components/Searchbar";
 import ChartTable from "./components/ChartTable";
 import BhavaTable from "./components/BhavaTable";
 import PlanetTable from "./components/PlanetTable";
-import dhasaData from "./helper/mockData/dhasaData";
 import DisplayDhasa from "./components/DisplayDhasa";
 import homeAPI from "./helper/homeAPI";
-import { prepareChartData } from "./helper/getChartApi";
+import { prepareChartData } from "./helper/getChart";
 
-const payload = {
+const searchPayload = {
   year: 1998,
   month: 12,
   day: 21,
@@ -23,18 +22,37 @@ const payload = {
   ayanamsha: "Jay",
   tzone: 5.5,
 };
+const dhasaPayload = {
+  year: 1998,
+  month: 12,
+  day: 12,
+  hour: 0,
+  min: 12,
+  seconds: 12,
+  lat: 9.9252007,
+  lon: 78.1197754,
+  ayanamsha: "jay",
+  tzone: 5.5,
+};
 
 function App() {
   const [searchData, setSearchData] = useState({ houses: [], planets: [] });
+  const [dhasaData, setDhasaData] = useState([]);
   useEffect(() => {
     homeAPI
-      .search(payload)
+      .search(searchPayload)
       .then((res) => res.json())
       .then((re) => {
         setSearchData(re);
       });
+    homeAPI
+      .majorDasha(dhasaPayload)
+      .then((res) => res.json())
+      .then((re) => {
+        setDhasaData(re);
+      });
   }, []);
-
+  console.log(dhasaData);
   const { houses, planets } = searchData || {};
   const chart = houses && planets ? prepareChartData(houses, planets) : [];
   const BhavaList = getBhavaTable(chart);
