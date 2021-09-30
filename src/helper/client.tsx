@@ -23,7 +23,7 @@ function post(payload: any) {
   return request;
 }
 
-async function ApiCall(method: any, endpoint: any, payload = {}) {
+function ApiCall(method: any, endpoint: any, payload = {}) {
   let request = {};
   let url = `https://json.astrologyapi.com`;
   switch (method) {
@@ -33,14 +33,11 @@ async function ApiCall(method: any, endpoint: any, payload = {}) {
     default:
       console.log("Requested Method Not Valid");
   }
-  const resp = await fetch(`${url}${endpoint}`, request);
-  const data = await response(resp);
-  console.log(data);
-  return data;
+  return fetch(`${url}${endpoint}`, request);
 }
 
-async function response(res: any) {
-  let json = await res.json();
+function response(res: any) {
+  let json = res.json();
   if (!(res.status === 200 || res.status === 201)) {
     return json.then((re: any) => {
       Error.show(re);
