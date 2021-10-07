@@ -2,13 +2,27 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import { getBhavaTable, getPlanetTable } from "./helper/bhavaPlanetTable";
-import Searchbar from "./components/Searchbar";
+import ChartGenerate from "./components/ChartGenerate";
 import ChartTable from "./components/ChartTable";
 import BhavaTable from "./components/BhavaTable";
 import PlanetTable from "./components/PlanetTable";
 import DisplayDhasa from "./components/DisplayDhasa";
+import LocationSearchInput from "./components/LocationSearchInput";
 import homeAPI from "./helper/homeAPI";
 import { prepareChartData } from "./helper/getChart";
+
+interface payloadType {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  min: number;
+  seconds: number;
+  lat: number;
+  lon: number;
+  ayanamsha: string;
+  tzone: number;
+}
 
 const searchPayload = {
   year: 1998,
@@ -36,31 +50,39 @@ const dhasaPayload = {
 };
 
 function App() {
+  const [payload, setPayload] = useState<payloadType>();
   const [searchData, setSearchData] = useState({ houses: [], planets: [] });
   const [dhasaData, setDhasaData] = useState([]);
-  useEffect(() => {
+
+  const setData = () => {
+    console.log(payload);
+    console.log(dhasaPayload);
     homeAPI
-      .search(searchPayload)
+      .search(payload)
       .then((res) => res.json())
       .then((re) => {
         setSearchData(re);
       });
     homeAPI
-      .majorDasha(dhasaPayload)
+      .majorDasha(payload)
       .then((res) => res.json())
       .then((re) => {
         setDhasaData(re);
       });
-  }, []);
-  console.log(dhasaData);
+  };
+  useEffect(() => {
+    if (payload != undefined) setData();
+  }, [payload]);
   const { houses, planets } = searchData || {};
+
   const chart = houses && planets ? prepareChartData(houses, planets) : [];
   const BhavaList = getBhavaTable(chart);
   const PlanetList = getPlanetTable(chart);
 
   return (
     <div className="App">
-      <Searchbar />
+      <ChartGenerate setPayload={setPayload} />
+
       <ChartTable data={chart} />
       <BhavaTable BhavaList={BhavaList} />
       <PlanetTable PlanetList={PlanetList} />

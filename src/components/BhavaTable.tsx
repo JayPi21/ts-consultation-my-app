@@ -26,7 +26,9 @@ const stylePrimaryPlanet = function (pp: any, subLord: any) {
 };
 
 const BhavaTable = ({ BhavaList: data }: any) => {
+  console.log(data); // data is undefined but still table rendering.
   if (data != undefined) {
+    //.length not working
     return (
       <div className="pl_card">
         <div className="pt_smallcard_contanier">
