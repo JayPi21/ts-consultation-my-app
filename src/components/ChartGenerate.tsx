@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import LocationSearchInput from "./LocationSearchInput";
+
 interface chartGenerateFuncProps {
   setPayload(arg: payloadType): void;
 }
@@ -46,17 +47,17 @@ const ChartGenerate: React.FC<chartGenerateFuncProps> = (props: any) => {
   }
 
   return (
-    <div>
+    <div className="chart_input_container">
       <input
         onChange={(e) => setSearchData({ ...searchData, name: e.target.value })}
-        className="pt_input search_txt_box w10"
+        className="pt_input w10"
         type="text"
         name="Name"
         placeholder="Name"
       ></input>
       <input
         onChange={(e) => setSearchData({ ...searchData, date: e.target.value })}
-        className="pt_input w15"
+        className="pt_input w10"
         type="date"
       />
       <input
@@ -65,7 +66,7 @@ const ChartGenerate: React.FC<chartGenerateFuncProps> = (props: any) => {
         name="Time"
         placeholder="Time"
         step="2"
-        className="pt_input w15"
+        className="pt_input w10"
       />
       <input type="hidden" name="lat" className="pt_input w10" />
       <input type="hidden" name="lon" className="pt_input w10" />
@@ -77,7 +78,7 @@ const ChartGenerate: React.FC<chartGenerateFuncProps> = (props: any) => {
         value={tzoneState}
         name="tzone"
         placeholder="Time Zone"
-        className="pt_input w10"
+        className="pt_input w5"
       />
 
       <LocationSearchInput

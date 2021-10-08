@@ -61,22 +61,22 @@ class LocationSearchInput extends React.Component<FuncProps> {
         onSelect={this.handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
+          <div className="inline_elem">
             <input
               {...getInputProps({
                 placeholder: "Place",
                 className: "location-search-input pt_input w10",
               })}
             />
-            <div className="autocomplete-dropdown-container">
+            <div className="autocomplete-dropdown-container my-autocomplete">
               {loading && <div>Loading...</div>}
               {suggestions.map((suggestion) => {
                 const className = suggestion.active
-                  ? "suggestion-item--active"
-                  : "suggestion-item";
+                  ? "suggestion-item--active item"
+                  : "suggestion-item item";
                 // inline style for demonstration purpose
                 const style = suggestion.active
-                  ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                  ? { backgroundColor: "#aaa", cursor: "pointer" }
                   : { backgroundColor: "#ffffff", cursor: "pointer" };
                 return (
                   <div

@@ -5,6 +5,45 @@ body {
 .row_block {
   padding: 0px 20px;
   margin: 10px 0px;
+  display: inline;
+}
+
+.chart_input_container {
+  display: flex;
+
+  margin: 10px 0px;
+  /* justify-content: space-between; */
+}
+
+.inline_elem {
+  display: inline-block;
+  position: relative;
+}
+
+.autocomplete-dropdown-container {
+  /* position: relative; */
+
+  /* width: 100%; */
+  z-index: 99999;
+}
+
+.item {
+  transition: all 0.2s;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.my-autocomplete {
+  position: absolute;
+  left: 10px;
+  background-color: white;
+  /* padding: 0px 20px; */
+
+  box-sizing: border-box;
+  top: 44px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+
+  width: 260px;
 }
 .pt_search {
   position: relative !important;
@@ -40,6 +79,10 @@ body {
 
 button:disabled {
   cursor: not-allowed;
+}
+
+.name_container {
+  width: 200px;
 }
 
 .pt_table {
@@ -224,13 +267,6 @@ selected_card:hover {
 }
 .bava_no {
   text-align: center;
-}
-
-.autocomplete-dropdown-container {
-  position: absolute;
-  background-color: white;
-  width: 100%;
-  z-index: 99999;
 }
 
 .location-search-input {
