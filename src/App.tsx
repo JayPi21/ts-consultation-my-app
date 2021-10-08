@@ -21,33 +21,8 @@ interface payloadType {
   lat: number;
   lon: number;
   ayanamsha: string;
-  tzone: number;
+  tzone: undefined | number;
 }
-
-const searchPayload = {
-  year: 1998,
-  month: 12,
-  day: 21,
-  hour: 9,
-  min: 1,
-  seconds: 1,
-  lat: 9.9252007,
-  lon: 78.1197754,
-  ayanamsha: "Jay",
-  tzone: 5.5,
-};
-const dhasaPayload = {
-  year: 1998,
-  month: 12,
-  day: 12,
-  hour: 0,
-  min: 12,
-  seconds: 12,
-  lat: 9.9252007,
-  lon: 78.1197754,
-  ayanamsha: "jay",
-  tzone: 5.5,
-};
 
 function App() {
   const [payload, setPayload] = useState<payloadType>();
@@ -55,8 +30,6 @@ function App() {
   const [dhasaData, setDhasaData] = useState([]);
 
   const setData = () => {
-    console.log(payload);
-    console.log(dhasaPayload);
     homeAPI
       .search(payload)
       .then((res) => res.json())

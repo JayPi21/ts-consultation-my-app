@@ -4,7 +4,7 @@ interface chartGenerateFuncProps {
   setPayload(arg: payloadType): void;
 }
 
-interface payloadType {
+type payloadType = {
   year: number;
   month: number;
   day: number;
@@ -14,23 +14,12 @@ interface payloadType {
   lat: number;
   lon: number;
   ayanamsha: string;
-  tzone: number;
-}
+  tzone: undefined | number;
+};
 
 const ChartGenerate: React.FC<chartGenerateFuncProps> = (props: any) => {
-  let payloadTemp: payloadType = {
-    year: -1000,
-    month: -1000,
-    day: -1000,
-    hour: -1000,
-    min: -1000,
-    seconds: -1000,
-    lat: -1000,
-    lon: -1000,
-    ayanamsha: "",
-    tzone: -1000,
-  }; // Not working without initial values tried adding interface.
-  const [tzoneState, setTzoneState] = useState<number>(-1000); //same here
+  let payloadTemp = {} as payloadType;
+  const [tzoneState, setTzoneState] = useState<number>();
   const [locData, setLocData] = useState({
     address: "",
     latLng: { lat: 0, lng: 0 },
@@ -103,17 +92,18 @@ const ChartGenerate: React.FC<chartGenerateFuncProps> = (props: any) => {
               searchData.name.length > 0 &&
               searchData.date.length > 0 &&
               searchData.time.length > 0 &&
-              locData.address.length > 0 &&
-              searchData.tzone.length > 0
-            )
+              locData.address.length > 0
+            ) {
               stringToNumber(searchData.date, searchData.time);
-            payloadTemp.ayanamsha = searchData.name;
-            payloadTemp.lat = locData.latLng.lat;
-            payloadTemp.lon = locData.latLng.lng;
 
-            payloadTemp.tzone = parseFloat(searchData.tzone);
-            payloadTemp.tzone = tzoneState;
-            props.setPayload(payloadTemp);
+              payloadTemp.ayanamsha = searchData.name;
+              payloadTemp.lat = locData.latLng.lat;
+              payloadTemp.lon = locData.latLng.lng;
+
+              payloadTemp.tzone = parseFloat(searchData.tzone);
+              payloadTemp.tzone = tzoneState;
+              props.setPayload(payloadTemp);
+            }
           }}
         >
           Generate
