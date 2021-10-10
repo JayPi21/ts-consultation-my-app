@@ -23,11 +23,27 @@ interface payloadType {
   ayanamsha: string;
   tzone: undefined | number;
 }
+interface queryType {
+  dhasaData?: string;
+  bukthiData?: string;
+  anthraData?: string;
+  sukshmaData?: string;
+}
 
 function App() {
   const [payload, setPayload] = useState<payloadType>();
   const [searchData, setSearchData] = useState({ houses: [], planets: [] });
+  const [queryObject, setQueryObject] = useState({
+    dhasaData: "",
+    bukthiData: "",
+    anthraData: "",
+    sukshmaData: "",
+  });
   const [dhasaData, setDhasaData] = useState([]);
+  const [bukthiData, setBukthiData] = useState([]);
+  const [anthraData, setAnthraData] = useState([]);
+  const [sukshmaData, setSukshmaData] = useState([]);
+  const [adhisukshmaData, setAdhisukshmaData] = useState([]);
 
   const setData = () => {
     homeAPI
@@ -42,15 +58,74 @@ function App() {
       .then((re) => {
         setDhasaData(re);
       });
+
+    // homeAPI
+    //   .subDasha4(payload, "Sun/Sun/Sun/Sun")
+    //   .then((res) => res.json())
+    //   .then((re) => {
+    //     setAdhisukshmaData(re);
+    //   });
   };
   useEffect(() => {
     if (payload != undefined) setData();
   }, [payload]);
+  useEffect(() => {}, [queryObject]);
   const { houses, planets } = searchData || {};
 
   const chart = houses && planets ? prepareChartData(houses, planets) : [];
   const BhavaList = getBhavaTable(chart);
   const PlanetList = getPlanetTable(chart);
+  function getBukthiData(query: string) {
+    homeAPI
+      .subDasha(payload, query)
+      .then((res) => res.json())
+      .then((re) => {
+        setBukthiData(re);
+      });
+  }
+  function getAnthraData(query: string) {
+    homeAPI
+      .subDasha2(payload, query)
+      .then((res) => res.json())
+      .then((re) => {
+        setAnthraData(re);
+      });
+  }
+  function getSukshmaData(query: string) {
+    homeAPI
+      .subDasha3(payload, query)
+      .then((res) => res.json())
+      .then((re) => {
+        setSukshmaData(re);
+      });
+  }
+
+  function handleClick(planet: string, keyName: string) {
+    {
+      setQueryObject({ ...queryObject, [keyName]: planet });
+    }
+    let queryString = "";
+
+    switch (keyName) {
+      case "dhasaData":
+        queryString = `${planet}`;
+        setSukshmaData([]);
+        setAnthraData([]);
+        getBukthiData(queryString);
+        break;
+      case "bukthiData":
+        queryString = `${queryObject.dhasaData}/${planet}`;
+        setSukshmaData([]);
+        getAnthraData(queryString);
+        break;
+      case "anthraData":
+        queryString = `${queryObject.dhasaData}/${queryObject.bukthiData}/${planet}`;
+        getSukshmaData(queryString);
+        break;
+      default:
+        break;
+    }
+  }
 
   return (
     <div className="App">
@@ -59,7 +134,31 @@ function App() {
       <ChartTable data={chart} />
       <BhavaTable BhavaList={BhavaList} />
       <PlanetTable PlanetList={PlanetList} />
-      <DisplayDhasa dhasaData={dhasaData} />
+      <DisplayDhasa
+        data={dhasaData}
+        title={"Dhasa Table"}
+        keyName="dhasaData"
+        handleClick={handleClick}
+      />
+      <DisplayDhasa
+        data={bukthiData}
+        title={"Bukthi Table"}
+        keyName="bukthiData"
+        handleClick={handleClick}
+      />
+      <DisplayDhasa
+        data={anthraData}
+        title={"Anthra Table"}
+        keyName="anthraData"
+        handleClick={handleClick}
+      />
+      <DisplayDhasa
+        data={sukshmaData}
+        title={"Sukshma Table"}
+        keyName="sukshmaData"
+        handleClick={handleClick}
+      />
+      {/* <DisplayDhasa data={adhisukshmaData} title={"Adhisukshma Table"} /> */}
     </div>
   );
 }
